@@ -2,11 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-mamafua-dashboard',
-  templateUrl: './mamafua-dashboard.component.html',
-  styleUrls: ['./mamafua-dashboard.component.css']
+  selector: 'app-mamafua-registration',
+  templateUrl: './mamafua-registration.component.html',
+  styleUrls: ['./mamafua-registration.component.css']
 })
-export class MamafuaDashboardComponent implements OnInit, OnDestroy {
+export class MamafuaRegistrationComponent implements OnInit, OnDestroy {
   mamafuaRegistrationForm!: FormGroup;
 
   constructor(
@@ -20,7 +20,6 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
 
   }
-
 
   getMamafuaRegistrationForm() {
     this.mamafuaRegistrationForm = this.fb.group({

@@ -1,29 +1,31 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ClientDTO } from '../../models/clientDTO';
+import { ClientService } from '../../services/client.service';
 
 @Component({
-  selector: 'app-mamafua-dashboard',
-  templateUrl: './mamafua-dashboard.component.html',
-  styleUrls: ['./mamafua-dashboard.component.css']
+  selector: 'app-client-registration',
+  templateUrl: './client-registration.component.html',
+  styleUrls: ['./client-registration.component.css']
 })
-export class MamafuaDashboardComponent implements OnInit, OnDestroy {
-  mamafuaRegistrationForm!: FormGroup;
+export class ClientRegistrationComponent implements OnInit, OnDestroy {
+  clientRegistrationForm!: FormGroup;
+  client: ClientDTO | undefined
 
   constructor(
+    private clientService: ClientService,
     private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
-    this.getMamafuaRegistrationForm();
+    this.getClientRegistrationForm();
   }
 
   ngOnDestroy(): void {
 
   }
-
-
-  getMamafuaRegistrationForm() {
-    this.mamafuaRegistrationForm = this.fb.group({
+  getClientRegistrationForm() {
+    this.clientRegistrationForm = this.fb.group({
       name: [""],
       county: [""],
       residentialArea: [""],
@@ -36,7 +38,7 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
   }
 
   register() {
-    const clientData = this.mamafuaRegistrationForm.value;
+    const clientData = this.clientRegistrationForm.value;
     const payload = {
       clntName: clientData.name,
       clntResidenceArea: clientData.residentialArea,
@@ -46,9 +48,10 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
       email: clientData.email,
       password: clientData.password,
     }
-    // this.clientService.saveClient(payload).subscribe((post) => {
-    //   alert("Registered!")
-    // })
+    this.clientService.saveClient(payload).subscribe((post) => {
+      alert("Registered!")
+    })
   }
 
 }
+

@@ -1,0 +1,55 @@
+<div class="main">
+    <div class="container">
+        <div style="justify-content: center; margin: 20px; font-size: 20px;">Client Registration</div>
+        <!-- registration form -->
+        <form [formGroup]="clientRegistrationForm" class="login-form">
+            <div class="row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" pInputText formControlName="name" id="name" />
+              </div>
+              <div class="form-group">
+                <label for="county">County</label>
+                <input type="text" pInputText formControlName="county" id="county" />
+              </div>
+              <div class="form-group">
+                <label for="residentialArea">Residential area</label>
+                <input type="text" pInputText formControlName="residentialArea" id="residentialArea" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for="plot">Residential plot</label>
+                <input type="text" pInputText formControlName="plot" id="plot" />
+              </div>
+              <div class="form-group">
+                <label for="hseNumber">House number</label>
+                <input type="text" pInputText formControlName="hseNumber" id="hseNumber" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" pInputText formControlName="email" id="email" />
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="text" pInputText formControlName="password" id="password" />
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="text" pInputText formControlName="confirmPassword" id="confirmPassword" />
+              </div>
+            </div>
+            <div class="form-group" style="padding-top: 20px;">
+              <p-button label="Register" icon="pi pi-save" (click)="register()"></p-button>
+            </div>
+            <div class="form-group" style="text-align: center;">
+              <span>Already have an account?</span>
+              <a href="/home/client/login" class="login-link">Login</a>
+            </div>
+          </form>
+          
+        <!-- registration form end  -->
+    </div>
+</div>

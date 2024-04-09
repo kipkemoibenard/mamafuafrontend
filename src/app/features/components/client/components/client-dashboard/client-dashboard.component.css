@@ -1,0 +1,12 @@
+.main {
+    background-color: ghostwhite;
+    padding: 20px; /* Adjust padding for small screens */
+  }
+  
+  .container {
+    padding: 20px; /* Adjust padding for small screens */
+    background-color: white;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
