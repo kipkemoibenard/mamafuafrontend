@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,17 @@ import { Injectable } from '@angular/core';
 })
 export class MamafuaService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
+  
+  baseUrl = "http://localhost:8585/mamafua";
+
+  mamafuaLogin(loginRequest: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json' // Set Content-Type header to JSON
+    });
+
+    return this.http.post(`${this.baseUrl}/login`, loginRequest, { headers: headers });
+  }
 }

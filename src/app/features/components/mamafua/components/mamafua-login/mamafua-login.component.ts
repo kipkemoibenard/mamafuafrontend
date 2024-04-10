@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MamafuaService } from '../../services/mamafua.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mamafua-login',
@@ -11,6 +13,8 @@ export class MamafuaLoginComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private mamaFuaService: MamafuaService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +33,13 @@ export class MamafuaLoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    
+    const loginRequest = this.mamafuaLoginForm.value;
+    this.mamaFuaService.mamafuaLogin(loginRequest).subscribe((post) => {
+        alert("Successful");
+      this.router.navigate(['home/mamafua/dashboard']);
+      
+    }, (error) => {
+      alert("Invalid email or password");
+    });
   }
 }
