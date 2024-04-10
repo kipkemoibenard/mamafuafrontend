@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ClientDTO } from '../models/clientDTO';
 
@@ -18,5 +18,16 @@ export class ClientService {
 
   saveClient(payload: any) {
     return this.http.post(`${this.baseUrl}/register`, payload);
+  }
+
+  // clientLogin(loginRequest: any) {
+  //   return this.http.post(`${this.baseUrl}/login`, loginRequest);
+  // }
+  clientLogin(loginRequest: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json' // Set Content-Type header to JSON
+    });
+
+    return this.http.post(`${this.baseUrl}/login`, loginRequest, { headers: headers });
   }
 }

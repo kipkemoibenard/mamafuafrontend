@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClientDTO } from '../../models/clientDTO';
 import { ClientService } from '../../services/client.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-login',
@@ -15,6 +16,7 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
   constructor(
     private clientService: ClientService,
     private fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,13 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    
+    const loginRequest = this.clientLoginForm.value;
+    this.clientService.clientLogin(loginRequest).subscribe((post) => {
+        alert("Successful");
+      this.router.navigate(['home/client/dashboard']);
+      
+    }, (error) => {
+      alert("Invalid email or password");
+    });
   }
 }
