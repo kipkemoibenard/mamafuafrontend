@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { MamafuaService } from '../../services/mamafua.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mamafua-registration',
@@ -11,6 +13,8 @@ export class MamafuaRegistrationComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private mamaFuaService: MamafuaService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -37,17 +41,15 @@ export class MamafuaRegistrationComponent implements OnInit, OnDestroy {
   register() {
     const clientData = this.mamafuaRegistrationForm.value;
     const payload = {
-      clntName: clientData.name,
-      clntResidenceArea: clientData.residentialArea,
-      clntResidentialPlot: clientData.plot,
-      clntHouseNo: clientData.hseNumber,
+      mamafuaName: clientData.name,
       county: clientData.county,
       email: clientData.email,
       password: clientData.password,
     }
-    // this.clientService.saveClient(payload).subscribe((post) => {
-    //   alert("Registered!")
-    // })
+    this.mamaFuaService.saveMamafua(payload).subscribe((post) => {
+      alert("Registered!")
+      this.router.navigate(['home/mamafua/login']);
+    })
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClientDTO } from '../../models/clientDTO';
 import { ClientService } from '../../services/client.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-registration',
@@ -15,6 +16,7 @@ export class ClientRegistrationComponent implements OnInit, OnDestroy {
   constructor(
     private clientService: ClientService,
     private fb: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -50,6 +52,7 @@ export class ClientRegistrationComponent implements OnInit, OnDestroy {
     }
     this.clientService.saveClient(payload).subscribe((post) => {
       alert("Registered!")
+      this.router.navigate(['home/client/login']);
     })
   }
 

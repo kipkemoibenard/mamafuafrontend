@@ -9,7 +9,7 @@ export class MamafuaService {
   constructor(
     private http: HttpClient
   ) { }
-  
+
   baseUrl = "http://localhost:8585/mamafua";
 
   mamafuaLogin(loginRequest: any) {
@@ -18,5 +18,9 @@ export class MamafuaService {
     });
 
     return this.http.post(`${this.baseUrl}/login`, loginRequest, { headers: headers });
+  }
+
+  saveMamafua(payload: any) {
+    return this.http.post(`${this.baseUrl}/register`, payload);
   }
 }
