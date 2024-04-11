@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ClientLoginComponent implements OnInit, OnDestroy {
   clientLoginForm!: FormGroup;
-  client: ClientDTO | undefined
+  client: ClientDTO | undefined;
 
   constructor(
     private clientService: ClientService,
@@ -36,8 +36,11 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
 
   login() {
     const loginRequest = this.clientLoginForm.value;
+    const email = this.clientLoginForm.value.email;
+    console.log("email", email);
     this.clientService.clientLogin(loginRequest).subscribe((post) => {
         alert("Successful");
+        sessionStorage.setItem('email', email);
       this.router.navigate(['home/client/dashboard']);
       
     }, (error) => {

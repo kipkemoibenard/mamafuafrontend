@@ -4,7 +4,7 @@
     <div class="item">
         <div style="justify-content: center; text-align: center;">Requests</div>
         <div class="multiselect-add">
-            <button class="btn btn-success rounded-circle" >&plus;</button>
+            <button class="rounded-circle" >&plus;</button>
 
           </div>
         <p-table  styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}">
@@ -102,7 +102,8 @@
             <button class="btn btn-success rounded-circle" >&plus;</button>
 
           </div>
-        <p-table [value]="clients" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}">
+        <p-table [value]="clients" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}" [paginator]="true"
+                [rows]="5">
             <ng-template pTemplate="header">
                 <tr>
                     <th>Name</th>

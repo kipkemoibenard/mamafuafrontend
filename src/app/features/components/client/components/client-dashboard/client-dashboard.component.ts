@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ClientService } from '../../services/client.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClientDTO } from '../../models/clientDTO';
+import { AdminService } from '../../../admin/service/admin.service';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -11,21 +12,39 @@ import { ClientDTO } from '../../models/clientDTO';
 export class ClientDashboardComponent implements OnInit, OnDestroy {
   clientRegistrationForm!: FormGroup;
   client: ClientDTO | undefined
+  availableServices: [] = [];
+  checked: boolean = false;
+  clientEmail!: string;
 
   constructor(
     private clientService: ClientService,
     private fb: FormBuilder,
+    private adminService: AdminService,
   ) { }
 
   ngOnInit(): void {
     this.getClientRegistrationForm();
+    this.getAllServices();
+    this.getStoredEmail();
+
   }
 
   ngOnDestroy(): void {
 
   }
 
- 
+  getStoredEmail() {
+    const storedEmail = sessionStorage.getItem('email');
+    if (storedEmail !== null) {
+      this.clientEmail = storedEmail;
+      console.log("retrieved Email", this.clientEmail)
+    } else {
+      // Handle case where email is null, maybe provide a default value or do something else
+    }
+
+  }
+
+
   getClientRegistrationForm() {
     this.clientRegistrationForm = this.fb.group({
       name: [""],
@@ -53,6 +72,13 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     this.clientService.saveClient(payload).subscribe((post) => {
       alert("Registered!")
     })
+  }
+
+  getAllServices() {
+    this.adminService.getAllServices().subscribe((services: any) => {
+      this.availableServices = services;
+      console.log("AllServices", this.availableServices);
+    });
   }
 
 }

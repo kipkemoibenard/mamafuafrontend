@@ -9,6 +9,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClientLoginComponent } from './components/client-login/client-login.component';
 import { ClientRegistrationComponent } from './components/client-registration/client-registration.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
 
 
 @NgModule({
@@ -25,6 +29,10 @@ import { ClientRegistrationComponent } from './components/client-registration/cl
     ReactiveFormsModule,
     ButtonModule,
     InputTextModule,
+    OverlayPanelModule,
+    ConfirmDialogModule,
+    TableModule,
+    CheckboxModule
   ]
 })
 export class ClientModule { }
