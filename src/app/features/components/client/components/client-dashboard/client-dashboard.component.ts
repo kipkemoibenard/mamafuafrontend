@@ -18,7 +18,6 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.getAllClients();
     this.getClientRegistrationForm();
   }
 
@@ -26,11 +25,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
 
   }
 
-  getAllClients() {
-    this.clientService.getAllClients().subscribe((clients) => {
-      console.log("AllClients", clients);
-    })
-  }
+ 
   getClientRegistrationForm() {
     this.clientRegistrationForm = this.fb.group({
       name: [""],

@@ -12,17 +12,14 @@ export class ClientService {
   ) { }
   baseUrl = "http://localhost:8585/client";
 
-  getAllClients() {
-    return this.http.get(`${this.baseUrl}/allClients`);
-  }
+  // getAllClients() {
+  //   return this.http.get(`${this.baseUrl}/allClients`);
+  // }
 
   saveClient(payload: any) {
     return this.http.post(`${this.baseUrl}/register`, payload);
   }
 
-  // clientLogin(loginRequest: any) {
-  //   return this.http.post(`${this.baseUrl}/login`, loginRequest);
-  // }
   clientLogin(loginRequest: any) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json' // Set Content-Type header to JSON

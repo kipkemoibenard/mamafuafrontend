@@ -12,6 +12,10 @@ const routes: Routes = [
     path: 'mamafua',
     loadChildren: () => import('../mamafua/mamafua.module').then((m) => m.MamafuaModule)
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('../admin/admin.module').then((m) => m.AdminModule)
+  },
 ];
 
 @NgModule({

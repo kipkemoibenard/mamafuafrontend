@@ -1,0 +1,15 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Divide into 2 columns */
+    grid-template-rows: repeat(2, 1fr); /* Divide into 2 rows */
+    height: 100vh; /* Full height of the viewport */
+    /* border: 2px solid #fcf8f8; */
+    /* background-color: #fcf8f8; */
+  }
+
+  /* Style for each individual div */
+  .item {
+    /* border: 2px solid #d8d8d8; */
+    padding: 20px; /* Add some padding for spacing */
+    box-sizing: border-box; /* Include padding and border in div size */
+  }

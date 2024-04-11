@@ -1,0 +1,198 @@
+<div style="justify-content: center; text-align: center;">Admin Dashboard</div>
+<div class="container">
+    <!-- First Div -->
+    <div class="item">
+        <div style="justify-content: center; text-align: center;">Requests</div>
+        <div class="multiselect-add">
+            <button class="btn btn-success rounded-circle" >&plus;</button>
+
+          </div>
+        <p-table  styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Cost</th>
+                    <th class="action-column"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td id="table-align">{{ item.svcName }}</td>
+                        <td id="table-align">{{ item.svcCost }}</td>
+                        <td class="action-column">
+                            <div class="flex justify-content-center">
+                                <p-overlayPanel #op>
+                                    <div class="action-buttons">
+                                        <!-- Edit button -->
+                                        <p-button label="Edit" icon="pi pi-pencil"
+                                            styleClass="p-button-rounded p-button-text" severity="warning"></p-button>&nbsp;
+                                            <!-- Delete button -->
+                                                <p-button
+                                                label="Delete" icon="pi pi-trash"
+                                            styleClass="p-button-rounded p-button-text" severity="danger"></p-button>
+                                            
+                                    </div>
+                                </p-overlayPanel>
+                                <!-- Ellipsis container -->
+                                <div class="button-container">
+                                    <button class="hover-button" (click)="op.toggle($event)">
+                                        <i class="fas fa-ellipsis-v" (click)="op.toggle($event)"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+            </ng-template>
+        </p-table>
+
+
+
+    </div>
+    <!-- Second Div -->
+    <div class="item">
+        <div style="justify-content: center; text-align: center;">Service providers</div>
+        <div class="multiselect-add">
+            <button class="btn btn-success rounded-circle" >&plus;</button>
+
+          </div>
+        <p-table [value]="serviceProviders" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>County</th>
+                    <th>Email</th>
+                    <th class="action-column"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td id="table-align">{{ item.mamafuaName }}</td>
+                        <td id="table-align">{{ item.county }}</td>
+                        <td id="table-align">{{ item.email }}</td>
+                        <td class="action-column">
+                            <div class="flex justify-content-center">
+                                <p-overlayPanel #op>
+                                    <div class="action-buttons">
+                                        <!-- Edit button -->
+                                        <p-button label="Edit" icon="pi pi-pencil"
+                                            styleClass="p-button-rounded p-button-text" severity="warning"></p-button>&nbsp;
+                                            <!-- Delete button -->
+                                                <p-button
+                                                label="Delete" icon="pi pi-trash"
+                                            styleClass="p-button-rounded p-button-text" severity="danger"></p-button>
+                                            
+                                    </div>
+                                </p-overlayPanel>
+                                <!-- Ellipsis container -->
+                                <div class="button-container">
+                                    <button class="hover-button" (click)="op.toggle($event)">
+                                        <i class="fas fa-ellipsis-v" (click)="op.toggle($event)"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- Third Div -->
+    <div class="item">
+        <div style="justify-content: center; text-align: center;">Clients</div>
+        <div class="multiselect-add">
+            <button class="btn btn-success rounded-circle" >&plus;</button>
+
+          </div>
+        <p-table [value]="clients" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>County</th>
+                    <th>Residential area</th>
+                    <th>Residential plot</th>
+                    <th>House number</th>
+                    <th>Email</th>
+                    <th class="action-column"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td id="table-align">{{ item.clntName }}</td>
+                        <td id="table-align">{{ item.county }}</td>
+                        <td id="table-align">{{ item.clntResidenceArea }}</td>
+                        <td id="table-align">{{ item.clntResidentialPlot }}</td>
+                        <td id="table-align">{{ item.clntHouseNo }}</td>
+                        <td id="table-align">{{ item.email }}</td>
+                        <td class="action-column">
+                            <div class="flex justify-content-center">
+                                <p-overlayPanel #op>
+                                    <div class="action-buttons">
+                                        <!-- Edit button -->
+                                        <p-button label="Edit" icon="pi pi-pencil"
+                                            styleClass="p-button-rounded p-button-text" severity="warning"></p-button>&nbsp;
+                                            <!-- Delete button -->
+                                                <p-button
+                                                label="Delete" icon="pi pi-trash"
+                                            styleClass="p-button-rounded p-button-text" severity="danger"></p-button>
+                                            
+                                    </div>
+                                </p-overlayPanel>
+                                <!-- Ellipsis container -->
+                                <div class="button-container">
+                                    <button class="hover-button" (click)="op.toggle($event)">
+                                        <i class="fas fa-ellipsis-v" (click)="op.toggle($event)"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <!-- Fourth Div -->
+    <div class="item">
+        <div style="justify-content: center; text-align: center;">Available services</div>
+        <div class="multiselect-add">
+            <button class="btn btn-success rounded-circle" >&plus;</button>
+
+          </div>
+        <p-table [value]="availableServices" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>id</th>
+                    <th>Name</th>
+                    <th>Cost</th>
+                    <th class="action-column"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td id="table-align">{{ item.svcId }}</td>
+                        <td id="table-align">{{ item.svcName }}</td>
+                        <td id="table-align">{{ item.svcCost }}</td>
+                        <td class="action-column">
+                            <div class="flex justify-content-center">
+                                <p-overlayPanel #op>
+                                    <div class="action-buttons">
+                                        <!-- Edit button -->
+                                        <p-button label="Edit" icon="pi pi-pencil"
+                                            styleClass="p-button-rounded p-button-text" severity="warning"></p-button>&nbsp;
+                                            <!-- Delete button -->
+                                                <p-button
+                                                label="Delete" icon="pi pi-trash"
+                                            styleClass="p-button-rounded p-button-text" severity="danger"></p-button>
+                                            
+                                    </div>
+                                </p-overlayPanel>
+                                <!-- Ellipsis container -->
+                                <div class="button-container">
+                                    <button class="hover-button" (click)="op.toggle($event)">
+                                        <i class="fas fa-ellipsis-v" (click)="op.toggle($event)"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+            </ng-template>
+        </p-table>
+    </div>
+  </div>
