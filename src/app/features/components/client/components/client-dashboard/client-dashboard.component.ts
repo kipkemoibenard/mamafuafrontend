@@ -15,6 +15,8 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   availableServices: [] = [];
   checked: boolean = false;
   clientEmail!: string;
+  checkedServices: { svcId: number, svcName: string, svcCost: string }[] = [];
+
 
   constructor(
     private clientService: ClientService,
@@ -43,7 +45,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     }
 
   }
-
+  
 
   getClientRegistrationForm() {
     this.clientRegistrationForm = this.fb.group({
@@ -80,5 +82,35 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
       console.log("AllServices", this.availableServices);
     });
   }
+
+  calculateTotalCost() {
+    let totalCost = 0;
+    for (const service of this.checkedServices) {
+      totalCost += parseFloat(service.svcCost);
+    }
+    return totalCost;
+  }
+  
+  toggleService(service: { svcId: number, svcName: string, svcCost: string }) {
+    const index = this.checkedServices.findIndex(s => s.svcId === service.svcId);
+    if (index === -1) {
+      this.checkedServices.push(service);
+    } else {
+      this.checkedServices.splice(index, 1);
+    }
+  }
+
+  sendDataToAPI() {
+    const totalCost = this.calculateTotalCost();
+    const dataToSend = {
+      email: this.clientEmail,
+      checkedServices: this.checkedServices,
+      totalCost: totalCost,
+      status: 'Booked',
+    };
+    console.log("booked", dataToSend);
+    
+  }
+  
 
 }
