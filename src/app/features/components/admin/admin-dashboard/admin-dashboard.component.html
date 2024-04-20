@@ -14,6 +14,7 @@
                   <th>Name</th>
                   <th>Cost</th>
                   <th>Status</th>
+                  <th>Service Provide</th>
               </tr>
           </ng-template>
           <ng-template pTemplate="body" let-item>
@@ -21,6 +22,7 @@
                   <td id="table-align">{{ item.svcName }}</td>
                   <td id="table-align">{{ item.svcCost }}</td>
                   <td id="table-align">{{ item.requestStatus }}</td>
+                  <td id="table-align">{{ item.reqSvcProvider }}</td>
               </tr>
           </ng-template>
       </p-table>

@@ -34,8 +34,10 @@ export class MamafuaLoginComponent implements OnInit, OnDestroy {
 
   login() {
     const loginRequest = this.mamafuaLoginForm.value;
+    const email = this.mamafuaLoginForm.value.email;
     this.mamaFuaService.mamafuaLogin(loginRequest).subscribe((post) => {
         alert("Successful");
+        sessionStorage.setItem('email', email);
       this.router.navigate(['home/mamafua/dashboard']);
       
     }, (error) => {

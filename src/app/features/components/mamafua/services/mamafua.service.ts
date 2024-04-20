@@ -27,4 +27,8 @@ export class MamafuaService {
   getAllRequestedServices(){
     return this.http.get(`${this.baseUrl}/request/allRequestedServices`);
   }
+
+  updateRequestedServices(payload: any, id: number) {
+    return this.http.put(`${this.baseUrl}/request/updateRequestedService/${id}`, payload);
+  }
 }
