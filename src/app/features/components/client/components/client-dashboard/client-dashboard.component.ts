@@ -13,6 +13,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   clientRegistrationForm!: FormGroup;
   client: ClientDTO | undefined
   availableServices: [] = [];
+  requestedServices: any[] = [];
   checked: boolean = false;
   clientEmail!: string;
   checkedServices: { svcId: number, svcName: string, svcCost: string }[] = [];
@@ -28,6 +29,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     this.getClientRegistrationForm();
     this.getAllServices();
     this.getStoredEmail();
+    this.getClientRequestedServices();
 
   }
 
@@ -102,14 +104,28 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
 
   sendDataToAPI() {
     const totalCost = this.calculateTotalCost();
+    const req = this.checkedServices;
+    console.log("reqssss", req)
+    console.log()
     const dataToSend = {
-      email: this.clientEmail,
-      checkedServices: this.checkedServices,
+      reqPerson: this.clientEmail,
+      requests: this.checkedServices,
       totalCost: totalCost,
-      status: 'Booked',
+      requestStatus: 'Active',
     };
     console.log("booked", dataToSend);
-    
+    this.clientService.postselectedServices(dataToSend).subscribe((save) => {
+      console.log("saved", save)
+      this.getClientRequestedServices();
+    })
+  }
+
+  getClientRequestedServices(){
+    this.clientService.getClientRequestedServices(this.clientEmail).subscribe((res: any) => {
+      console.log("requested", res)
+      this.requestedServices = res.filter((item: { svcCost: null; svcName: null; }) => item.svcCost !== null && item.svcName !== null);
+      console.log("filtered", this.requestedServices)
+    })
   }
   
 

@@ -15,6 +15,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RadioButtonModule,
     OverlayPanelModule,
     ConfirmDialogModule,
+    DialogModule,
   ]
 })
 export class AdminModule { }

@@ -8,6 +8,8 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { MamafuaLoginComponent } from './components/mamafua-login/mamafua-login.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { MamafuaRegistrationComponent } from './components/mamafua-registration/mamafua-registration.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -23,6 +25,8 @@ import { MamafuaRegistrationComponent } from './components/mamafua-registration/
     FormsModule,
     ReactiveFormsModule,
     InputTextModule,
+    TableModule,
+    CheckboxModule
   ]
 })
 export class MamafuaModule { }

@@ -7,43 +7,23 @@
             <button class="rounded-circle" >&plus;</button>
 
           </div>
-        <p-table  styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Name</th>
-                    <th>Cost</th>
-                    <th class="action-column"></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-item>
-                    <tr>
-                        <td id="table-align">{{ item.svcName }}</td>
-                        <td id="table-align">{{ item.svcCost }}</td>
-                        <td class="action-column">
-                            <div class="flex justify-content-center">
-                                <p-overlayPanel #op>
-                                    <div class="action-buttons">
-                                        <!-- Edit button -->
-                                        <p-button label="Edit" icon="pi pi-pencil"
-                                            styleClass="p-button-rounded p-button-text" severity="warning"></p-button>&nbsp;
-                                            <!-- Delete button -->
-                                                <p-button
-                                                label="Delete" icon="pi pi-trash"
-                                            styleClass="p-button-rounded p-button-text" severity="danger"></p-button>
-                                            
-                                    </div>
-                                </p-overlayPanel>
-                                <!-- Ellipsis container -->
-                                <div class="button-container">
-                                    <button class="hover-button" (click)="op.toggle($event)">
-                                        <i class="fas fa-ellipsis-v" (click)="op.toggle($event)"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-            </ng-template>
-        </p-table>
+          <p-table [value]="requestedServices" styleClass="p-datatable-striped"
+          [tableStyle]="{'min-width': '30rem'}" [paginator]="true" [rows]="5">
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>Name</th>
+                  <th>Cost</th>
+                  <th>Status</th>
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-item>
+              <tr>
+                  <td id="table-align">{{ item.svcName }}</td>
+                  <td id="table-align">{{ item.svcCost }}</td>
+                  <td id="table-align">{{ item.requestStatus }}</td>
+              </tr>
+          </ng-template>
+      </p-table>
 
 
 
@@ -115,8 +95,8 @@
                     <th class="action-column"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-item>
-                    <tr>
+            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                    <tr (click)="onClientsTableRowClick(item, rowIndex)" [ngClass]="{'selected-row': rowIndex === selectedRowIndex}" style="cursor: pointer">
                         <td id="table-align">{{ item.clntName }}</td>
                         <td id="table-align">{{ item.county }}</td>
                         <td id="table-align">{{ item.clntResidenceArea }}</td>
@@ -153,7 +133,7 @@
     <div class="item">
         <div style="justify-content: center; text-align: center;">Available services</div>
         <div class="multiselect-add">
-            <button class="btn btn-success rounded-circle" >&plus;</button>
+            <button class="btn btn-success rounded-circle" (click)="showDialog()">&plus;</button>
 
           </div>
         <p-table [value]="availableServices" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}">
@@ -197,3 +177,30 @@
         </p-table>
     </div>
   </div>
+
+  <!-- modal -->
+
+ 
+<div class="card flex justify-content-center">
+    <!-- <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button> -->
+    <p-dialog header="Register Service" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+        <form [formGroup]="serviceRegistrationFormForm" class="login-form">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="serviceName">Service Name</label>
+                <input type="text" pInputText formControlName="serviceName" id="serviceName" class="form-control" />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="serviceCost">Service Cost</label>
+                <input type="text" pInputText formControlName="serviceCost" id="serviceCost" class="form-control" />
+              </div>
+            </div>
+            <div class="form-group" style="padding-top: 20px;">
+              <button type="button" pButton label="Register" icon="pi pi-login" class="p-button p-button-primary"
+                (click)="registerService()"></button>
+            </div>
+          </form>
+          
+    </p-dialog>
+</div>
+  <!-- modal end -->

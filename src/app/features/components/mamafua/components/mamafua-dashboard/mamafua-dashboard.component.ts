@@ -1,5 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { AdminService } from '../../../admin/service/admin.service';
+import { ClientService } from '../../../client/services/client.service';
+import { MamafuaService } from '../../services/mamafua.service';
 
 @Component({
   selector: 'app-mamafua-dashboard',
@@ -8,47 +11,36 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class MamafuaDashboardComponent implements OnInit, OnDestroy {
   mamafuaRegistrationForm!: FormGroup;
+  availableServices: any[] = [];
+  requestedServices: any[] = [];
 
   constructor(
     private fb: FormBuilder,
+    private adminService: AdminService,
+    private clientService: ClientService,
+    private mamafuaService : MamafuaService
   ) { }
 
   ngOnInit(): void {
-    this.getMamafuaRegistrationForm();
+    this.getAllRequestedServices()
   }
 
   ngOnDestroy(): void {
 
   }
 
-
-  getMamafuaRegistrationForm() {
-    this.mamafuaRegistrationForm = this.fb.group({
-      name: [""],
-      county: [""],
-      residentialArea: [""],
-      plot: [""],
-      hseNumber: [""],
-      email: [""],
-      password: [""],
-      confirmPassword: [""],
+  getAllRequestedServices(){
+    this.mamafuaService.getAllRequestedServices().subscribe((res: any) => {
+      console.log("requested", res)
+      this.requestedServices = res
     })
   }
 
-  register() {
-    const clientData = this.mamafuaRegistrationForm.value;
-    const payload = {
-      clntName: clientData.name,
-      clntResidenceArea: clientData.residentialArea,
-      clntResidentialPlot: clientData.plot,
-      clntHouseNo: clientData.hseNumber,
-      county: clientData.county,
-      email: clientData.email,
-      password: clientData.password,
-    }
-    // this.clientService.saveClient(payload).subscribe((post) => {
-    //   alert("Registered!")
-    // })
+  toggleService(service: { svcId: number, svcName: string, svcCost: string }) {
+    
+  }
+
+  sendDataToAPI() {
   }
 
 }
