@@ -61,7 +61,10 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
     }
     
       this.mamafuaService.updateRequestedServices(payload, id).subscribe((res) => {
-
+        if(res) {
+          this.getAllRequestedServices();
+        }
+        
       })
    
     

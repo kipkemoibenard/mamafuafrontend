@@ -12,6 +12,10 @@
     justify-content: center;
     text-align: center;
 }
+
+th {
+    white-space: nowrap;
+}
   
   
   
