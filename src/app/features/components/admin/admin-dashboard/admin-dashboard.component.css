@@ -1,3 +1,17 @@
+.main {
+  background-color: ghostwhite;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+}
+
+#container {
+  padding: 40px;
+  background-color: white;
+  border-radius: 5px;
+  justify-content: center;
+  text-align: center;
+}
 .container {
   width: 100%;
   display: grid;

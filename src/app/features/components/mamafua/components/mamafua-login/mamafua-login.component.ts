@@ -38,7 +38,13 @@ export class MamafuaLoginComponent implements OnInit, OnDestroy {
     this.mamaFuaService.mamafuaLogin(loginRequest).subscribe((post) => {
         alert("Successful");
         sessionStorage.setItem('email', email);
-      this.router.navigate(['home/mamafua/dashboard']);
+        if(email === 'admin@gmail.com') {
+          this.router.navigate(['home/admin/dashboard']);
+        }
+        else {
+          this.router.navigate(['home/mamafua/dashboard']);
+        }
+      
       
     }, (error) => {
       alert("Invalid email or password");

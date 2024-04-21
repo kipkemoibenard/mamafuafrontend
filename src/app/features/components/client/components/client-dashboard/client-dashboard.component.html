@@ -1,7 +1,11 @@
 <div class="main">
     <div class="container">
+        <div class="form-group" style="float: right;">
+            <p-button label="Logout" icon='pi pi-fw pi-power-off' (click)="logout()"></p-button>
+        </div>
         <div style="justify-content: center; margin: 20px; font-size: 20px;">Client Dashboard</div>
-            <div class="col-md-6" style="width: 50%;">
+        <div style="display: flex;">
+        <div style="flex: 1; padding-right: 20px;">
 
                 <div style="justify-content: center; text-align: center;">Available services</div>
 
@@ -34,12 +38,11 @@
                 </div>
             </div>
 
-            <div class="col-md-6" style="width: 50%;">
+            <div style="flex: 1; padding-left: 20px;">
 
                
 
-               <div *ngIf="requestedServices && requestedServices.length > 0"
-                style="margin: 30px;">
+               <div *ngIf="requestedServices && requestedServices.length > 0" >
                 <div style="justify-content: center; text-align: center;">Requested services</div>
                 <p-table [value]="requestedServices" styleClass="p-datatable-striped"
                     [tableStyle]="{'min-width': '30rem'}" [paginator]="true" [rows]="5">
@@ -67,6 +70,7 @@
                 
             </div>
             </div>
+        </div>
 
         </div>
     </div>

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../service/admin.service';
 import { ClientService } from '../../client/services/client.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -23,6 +24,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     private adminService: AdminService,
     private clientService: ClientService,
     private fb: FormBuilder,
+    private router: Router,
   ) {
 
   }
@@ -89,5 +91,9 @@ serviceRegistrationForm() {
 
   registerService() {
 
+  }
+
+  logout() {
+    this.router.navigate(['/home'])
   }
 }

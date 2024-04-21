@@ -41,7 +41,12 @@ export class ClientLoginComponent implements OnInit, OnDestroy {
     this.clientService.clientLogin(loginRequest).subscribe((post) => {
         alert("Successful");
         sessionStorage.setItem('email', email);
-      this.router.navigate(['home/client/dashboard']);
+        if(email === 'admin@gmail.com') {
+          this.router.navigate(['home/admin/dashboard']);
+        } else {
+          this.router.navigate(['home/client/dashboard']);
+        }
+      
       
     }, (error) => {
       alert("Invalid email or password");

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MamafuaService } from '../../services/mamafua.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mamafua-dashboard',
@@ -16,7 +17,8 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private mamafuaService : MamafuaService
+    private mamafuaService : MamafuaService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -71,6 +73,10 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
   }
 
   sendDataToAPI() {
+  }
+
+  logout() {
+    this.router.navigate(['/home'])
   }
 
 }

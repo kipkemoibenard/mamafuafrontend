@@ -3,6 +3,7 @@ import { ClientService } from '../../services/client.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClientDTO } from '../../models/clientDTO';
 import { AdminService } from '../../../admin/service/admin.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -23,6 +24,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     private clientService: ClientService,
     private fb: FormBuilder,
     private adminService: AdminService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -128,5 +130,9 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     })
   }
   
+
+  logout() {
+    this.router.navigate(['/home'])
+  }
 
 }

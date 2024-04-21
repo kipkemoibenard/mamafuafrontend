@@ -82,10 +82,10 @@ export class LandingScreenComponent implements OnInit {
           },
         ]
       },
-      {
-        label: 'Quit',
-        icon: 'pi pi-fw pi-power-off'
-      }
+      // {
+      //   label: 'Quit',
+      //   icon: 'pi pi-fw pi-power-off'
+      // }
     ];
   }
 
