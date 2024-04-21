@@ -19,6 +19,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   clientEmail!: string;
   checkedServices: { svcId: number, svcName: string, svcCost: string }[] = [];
   intervalId: any;
+  totalCost!: number;
 
 
   constructor(
@@ -141,12 +142,41 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  getClientRequestedServices(){
+  // getClientRequestedServices(){
+  //   this.clientService.getClientRequestedServices(this.clientEmail).subscribe((res: any) => {
+  //     console.log("requested", res)
+  //     this.requestedServices = res.filter((item: { svcCost: null; svcName: null; }) => item.svcCost !== null && item.svcName !== null);
+  //     console.log("filtered", this.requestedServices)
+
+      
+  //       // Calculate and return the total cost
+  //       let totalCost = 0;
+  //       for (const item of this.requestedServices) {
+  //         console.log("itemitem", item)
+  //         totalCost += item.svcCost;
+  //         console.log("item.svcCost", item.svcCost)
+  //         console.log("additions", totalCost)
+  //       }
+  //       this.totalCost = totalCost;
+  //       return this.totalCost;
+  //   })
+  // }
+
+  getClientRequestedServices(): void {
     this.clientService.getClientRequestedServices(this.clientEmail).subscribe((res: any) => {
       console.log("requested", res)
-      this.requestedServices = res.filter((item: { svcCost: null; svcName: null; }) => item.svcCost !== null && item.svcName !== null);
+      // Filter out items with null svcCost or svcName
+      this.requestedServices = res.filter((item: { svcCost: any; svcName: any; }) => item.svcCost !== null && item.svcName !== null);
       console.log("filtered", this.requestedServices)
-    })
+
+      // Calculate total cost
+      this.totalCost = this.requestedServices.reduce((acc: number, item: { svcCost: any; }) => {
+        // Convert svcCost to number before adding to accumulator
+        const cost = parseFloat(item.svcCost);
+        // Add cost to accumulator
+        return acc + cost;
+      }, 0);
+    });
   }
   
 
