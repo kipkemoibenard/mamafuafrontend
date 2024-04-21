@@ -62,7 +62,7 @@
                             <td id="table-align">{{ item.svcCost }}</td>
                             <td id="table-align">{{ item.requestStatus }}</td>
                             <td class="action-column">
-                                <p-checkbox value="service" inputId="scv"></p-checkbox>
+                                <p-checkbox value="service" inputId="scv" (onChange)="toggleServiceDone(item)"></p-checkbox>
                             </td>
                         </tr>
                     </ng-template>

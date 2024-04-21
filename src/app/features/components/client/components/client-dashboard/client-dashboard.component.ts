@@ -62,7 +62,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
 
   refreshData(): void {
     this.getClientRequestedServices();
-    this.getAllServices();
+    // this.getAllServices();
   }
 
   stopAutoRefresh(): void {

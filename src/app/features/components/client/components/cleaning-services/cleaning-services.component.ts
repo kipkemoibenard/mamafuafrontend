@@ -25,7 +25,7 @@ export class CleaningServicesComponent implements OnInit, OnDestroy {
   }
 
   next() {
-    this.router.navigate(['home/client/dashboard']);
+    this.router.navigate(['/home/client/login']);
   }
 
 }

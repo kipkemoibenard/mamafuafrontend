@@ -87,6 +87,27 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
     
   }
 
+  toggleServiceDone(service: {
+    reqId: any; "": any; 
+}) {
+  
+    console.log("selected", service)
+    const id = service.reqId
+    const payload = {
+      requestStatus: "Done",
+      reqSvcProvider: this.mamafuaEmail,
+    }
+    
+      this.mamafuaService.updateRequestedServices(payload, id).subscribe((res) => {
+        if(res) {
+          this.getAllRequestedServices();
+        }
+        
+      })
+      this.getAllRequestedServices();
+    
+  }
+
   sendDataToAPI() {
   }
 

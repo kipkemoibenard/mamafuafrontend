@@ -151,6 +151,7 @@ serviceRegistrationForm() {
     this.adminService.editService(payload, idToEdit).subscribe((res) => {
       alert("Edited");
       this.getAllServices();
+      this.serviceRegistrationFormForm.reset();
       this.visible = false;
     })
 
@@ -162,6 +163,7 @@ serviceRegistrationForm() {
 
     this.adminService.deleteService(idToDel).subscribe((res) => {
       alert("Deleted");
+      this.getAllServices();
     })
 
   }
