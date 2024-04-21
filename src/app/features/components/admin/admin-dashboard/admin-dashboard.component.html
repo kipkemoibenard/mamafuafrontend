@@ -113,7 +113,7 @@
     <div class="item">
         <div style="justify-content: center; text-align: center;">Available services</div>
         <div class="multiselect-add">
-            <button class="btn btn-success rounded-circle" (click)="showDialog()">&plus;</button>
+            <button class="btn btn-success rounded-circle" (click)="showRegisterDialog()">&plus;</button>
 
           </div>
         <p-table [value]="availableServices" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}"
@@ -137,11 +137,11 @@
                                     <div class="action-buttons">
                                         <!-- Edit button -->
                                         <p-button label="Edit" icon="pi pi-pencil"
-                                            styleClass="p-button-rounded p-button-text" severity="warning"></p-button>&nbsp;
+                                            styleClass="p-button-rounded p-button-text" severity="warning" (click)="showDialog(item)"></p-button>&nbsp;
                                             <!-- Delete button -->
                                                 <p-button
                                                 label="Delete" icon="pi pi-trash"
-                                            styleClass="p-button-rounded p-button-text" severity="danger"></p-button>
+                                            styleClass="p-button-rounded p-button-text" severity="danger" (click)="deleteAvailableService(item, $event)" ></p-button>
                                             
                                     </div>
                                 </p-overlayPanel>
@@ -177,8 +177,8 @@
               </div>
             </div>
             <div class="form-group" style="padding-top: 20px;">
-              <button type="button" pButton label="Register" icon="pi pi-login" class="p-button p-button-primary"
-                (click)="registerService()"></button>
+              <button type="button" pButton label="Edit" icon="pi pi-login" class="p-button p-button-primary"
+              (click)="editMode ? editAvailableService() : registerService()"></button>
             </div>
           </form>
           

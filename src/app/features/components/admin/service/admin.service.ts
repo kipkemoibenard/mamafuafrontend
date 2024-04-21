@@ -25,4 +25,12 @@ export class AdminService {
   registerService(payload: any) {
     return this.http.post(`${this.baseUrl}/service/save`, payload);
   }
+
+  editService(payload: any, id: any) {
+    return this.http.put(`${this.baseUrl}/service/updateAvailableService/${id}`, payload);
+  }
+
+  deleteService(id: any) {
+    return this.http.delete(`${this.baseUrl}/service/deleteAvailableService/${id}`);
+  }
 }

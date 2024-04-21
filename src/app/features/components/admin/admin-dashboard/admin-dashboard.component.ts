@@ -19,6 +19,8 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   visible: boolean = false;
   serviceRegistrationFormForm!: FormGroup;
   intervalId: any;
+  availableServiceCode!: number;
+  editMode: boolean = false;
 
 
   constructor(
@@ -42,8 +44,21 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     
   }
 
-  showDialog() {
+  showRegisterDialog() {
     this.visible = true;
+}
+
+  showDialog(availableServices: any) {
+    this.editMode = true
+    console.log("availableServicesToEd",availableServices)
+    this.visible = true;
+    this.availableServiceCode = availableServices.svcId;
+
+    this.serviceRegistrationFormForm.patchValue({
+      serviceName: availableServices.svcName,
+      serviceCost: availableServices.svcCost,
+    });
+
 }
 
 serviceRegistrationForm() {
@@ -62,7 +77,7 @@ serviceRegistrationForm() {
 
   refreshData(): void {
     this.getAllClients();
-    this.getAllServices();
+    // this.getAllServices();
     this.getAllMamafua();
   }
 
@@ -121,5 +136,33 @@ serviceRegistrationForm() {
 
   logout() {
     this.router.navigate(['/home'])
+  }
+
+  editAvailableService() {
+    const formData = this.serviceRegistrationFormForm.value;
+    const idToEdit = this.availableServiceCode
+
+    const payload = {
+      svcName: formData.serviceName,
+      svcCost: formData.serviceCost,
+    }
+
+
+    this.adminService.editService(payload, idToEdit).subscribe((res) => {
+      alert("Edited");
+      this.getAllServices();
+      this.visible = false;
+    })
+
+  }
+
+  deleteAvailableService(availableServices: any, event: Event) {
+    console.log("availableServicesToDel", availableServices)
+    const idToDel = availableServices.svcId;
+
+    this.adminService.deleteService(idToDel).subscribe((res) => {
+      alert("Deleted");
+    })
+
   }
 }
