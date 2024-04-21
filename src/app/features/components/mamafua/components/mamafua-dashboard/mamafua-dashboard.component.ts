@@ -14,14 +14,18 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
   requestedServices: any[] = [];
   acceptedServices: any[] = [];
   mamafuaEmail!: string;
+  intervalId: any;
+
 
   constructor(
     private fb: FormBuilder,
     private mamafuaService : MamafuaService,
     private router: Router,
+    
   ) { }
 
   ngOnInit(): void {
+    this.startAutoRefresh();
     this.getAllRequestedServices();
     this.getStoredEmail();
   }
@@ -39,6 +43,17 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
       //to work on this
     }
 
+  }
+
+  startAutoRefresh(): void {
+    // Set interval to refresh every 5 seconds (5000 milliseconds)
+    this.intervalId = setInterval(() => {
+      this.refreshData();
+    }, 5000);
+  }
+
+  refreshData(): void {
+    this.getAllRequestedServices();
   }
 
   getAllRequestedServices(){
@@ -68,7 +83,7 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
         }
         
       })
-   
+      this.getAllRequestedServices();
     
   }
 

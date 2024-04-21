@@ -18,6 +18,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   selectedRowIndex: number | undefined;
   visible: boolean = false;
   serviceRegistrationFormForm!: FormGroup;
+  intervalId: any;
 
 
   constructor(
@@ -30,6 +31,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.startAutoRefresh()
     this.getAllClients();
     this.getAllServices();
     this.getAllMamafua();
@@ -50,6 +52,19 @@ serviceRegistrationForm() {
     serviceCost: [""],
   })
 }
+
+  startAutoRefresh(): void {
+    // Set interval to refresh every 5 seconds (5000 milliseconds)
+    this.intervalId = setInterval(() => {
+      this.refreshData();
+    }, 5000);
+  }
+
+  refreshData(): void {
+    this.getAllClients();
+    this.getAllServices();
+    this.getAllMamafua();
+  }
 
   getAllClients() {
     this.adminService.getAllClients().subscribe((clients: any) => {
@@ -90,7 +105,18 @@ serviceRegistrationForm() {
   }
 
   registerService() {
+    const formData = this.serviceRegistrationFormForm.value;
+    const payload = {
+      svcName: formData.serviceName,
+      svcCost: formData.serviceCost,
+    }
+    this.adminService.registerService(payload).subscribe((res) => {
+      this.getAllServices();
+      alert("Service registered")
+      this.serviceRegistrationFormForm.reset();
+      this.visible = false;
 
+    })
   }
 
   logout() {

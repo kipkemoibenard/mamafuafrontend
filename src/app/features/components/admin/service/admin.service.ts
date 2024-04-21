@@ -21,4 +21,8 @@ export class AdminService {
   getAllMamafua() {
     return this.http.get(`${this.baseUrl}/mamafua/getAllMamafua`);
   }
+
+  registerService(payload: any) {
+    return this.http.post(`${this.baseUrl}/service/save`, payload);
+  }
 }

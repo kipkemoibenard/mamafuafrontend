@@ -18,6 +18,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   checked: boolean = false;
   clientEmail!: string;
   checkedServices: { svcId: number, svcName: string, svcCost: string }[] = [];
+  intervalId: any;
 
 
   constructor(
@@ -28,6 +29,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.startAutoRefresh();
     this.getClientRegistrationForm();
     this.getAllServices();
     this.getStoredEmail();
@@ -36,7 +38,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    // this.stopAutoRefresh();
   }
 
   getStoredEmail() {
@@ -48,6 +50,23 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
       // Handle case where email is null, maybe provide a default value or do something else
     }
 
+  }
+
+  startAutoRefresh(): void {
+    // Set interval to refresh every 5 seconds (5000 milliseconds)
+    this.intervalId = setInterval(() => {
+      this.refreshData();
+    }, 5000);
+  }
+
+  refreshData(): void {
+    this.getClientRequestedServices();
+    this.getAllServices();
+  }
+
+  stopAutoRefresh(): void {
+    // Clear interval to stop auto-refresh
+    clearInterval(this.intervalId);
   }
   
 
