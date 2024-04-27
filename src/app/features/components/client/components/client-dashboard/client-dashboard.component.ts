@@ -84,29 +84,24 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     })
   }
 
-  register() {
-    const clientData = this.clientRegistrationForm.value;
-    const payload = {
-      clntName: clientData.name,
-      clntResidenceArea: clientData.residentialArea,
-      clntResidentialPlot: clientData.plot,
-      clntHouseNo: clientData.hseNumber,
-      county: clientData.county,
-      email: clientData.email,
-      password: clientData.password,
-    }
-    this.clientService.saveClient(payload).subscribe((post) => {
-      alert("Registered!")
-    })
-  }
 
   getAllServices() {
     this.adminService.getAllServices().subscribe((services: any) => {
-      this.availableServices = services;
-      console.log("AllServices", this.availableServices);
+      // Get requested services
+      this.clientService.getClientRequestedServices(this.clientEmail).subscribe((requestedServices: any) => {
+        console.log("requested", requestedServices);
+  
+        // Extract service names of requested services
+        const requestedServiceNames = requestedServices.map((item: { svcName: any; }) => item.svcName);
+  
+        // Filter out requested services from available services
+        this.availableServices = services.filter((service: { svcName: any; }) => !requestedServiceNames.includes(service.svcName));
+  
+        console.log("AllServices", this.availableServices);
+      });
     });
   }
-
+  
   calculateTotalCost() {
     let totalCost = 0;
     for (const service of this.checkedServices) {
@@ -135,32 +130,18 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
       totalCost: totalCost,
       requestStatus: 'Active',
     };
-    console.log("booked", dataToSend);
-    this.clientService.postselectedServices(dataToSend).subscribe((save) => {
-      console.log("saved", save)
-      this.getClientRequestedServices();
-    })
+    if (window.confirm("Are you sure you want to request this service?")) {
+      console.log("booked", dataToSend);
+      this.clientService.postselectedServices(dataToSend).subscribe((save) => {
+          console.log("saved", save);
+          this.getAllServices();
+          this.getClientRequestedServices();
+      });
+  } else {
+      // Do something if the user cancels the action
   }
-
-  // getClientRequestedServices(){
-  //   this.clientService.getClientRequestedServices(this.clientEmail).subscribe((res: any) => {
-  //     console.log("requested", res)
-  //     this.requestedServices = res.filter((item: { svcCost: null; svcName: null; }) => item.svcCost !== null && item.svcName !== null);
-  //     console.log("filtered", this.requestedServices)
-
-      
-  //       // Calculate and return the total cost
-  //       let totalCost = 0;
-  //       for (const item of this.requestedServices) {
-  //         console.log("itemitem", item)
-  //         totalCost += item.svcCost;
-  //         console.log("item.svcCost", item.svcCost)
-  //         console.log("additions", totalCost)
-  //       }
-  //       this.totalCost = totalCost;
-  //       return this.totalCost;
-  //   })
-  // }
+  
+  }
 
   getClientRequestedServices(): void {
     this.clientService.getClientRequestedServices(this.clientEmail).subscribe((res: any) => {

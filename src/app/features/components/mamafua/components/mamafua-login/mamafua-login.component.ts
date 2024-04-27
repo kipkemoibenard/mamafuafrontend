@@ -50,4 +50,8 @@ export class MamafuaLoginComponent implements OnInit, OnDestroy {
       alert("Invalid email or password");
     });
   }
+
+  home() {
+    this.router.navigate(['home']);
+  }
 }

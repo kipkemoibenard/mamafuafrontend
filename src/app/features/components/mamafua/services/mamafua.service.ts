@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class MamafuaService {
     return this.http.post(`${this.baseUrl}/mamafua/login`, loginRequest, { headers: headers });
   }
 
-  saveMamafua(payload: any) {
-    return this.http.post(`${this.baseUrl}/mamafua/register`, payload);
+  saveMamafua(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/mamafua/register`, payload, { responseType: 'text' });
   }
 
   getAllRequestedServices(){

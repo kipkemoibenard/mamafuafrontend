@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./admin-dashboard.component.css']
 })
 export class AdminDashboardComponent implements OnInit, OnDestroy {
-  availableServices: []=[];
-  clients: []=[];
-  serviceProviders: []=[];
+  availableServices: [] = [];
+  clients: [] = [];
+  serviceProviders: [] = [];
   requestedServices: any[] = [];
   clientEmail!: string;
   selectedRowIndex: number | undefined;
@@ -41,16 +41,16 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    
+
   }
 
   showRegisterDialog() {
     this.visible = true;
-}
+  }
 
   showDialog(availableServices: any) {
     this.editMode = true
-    console.log("availableServicesToEd",availableServices)
+    console.log("availableServicesToEd", availableServices)
     this.visible = true;
     this.availableServiceCode = availableServices.svcId;
 
@@ -59,14 +59,14 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
       serviceCost: availableServices.svcCost,
     });
 
-}
+  }
 
-serviceRegistrationForm() {
-  this.serviceRegistrationFormForm = this.fb.group({
-    serviceName: [""],
-    serviceCost: [""],
-  })
-}
+  serviceRegistrationForm() {
+    this.serviceRegistrationFormForm = this.fb.group({
+      serviceName: [""],
+      serviceCost: [""],
+    })
+  }
 
   startAutoRefresh(): void {
     // Set interval to refresh every 5 seconds (5000 milliseconds)
@@ -84,7 +84,7 @@ serviceRegistrationForm() {
   getAllClients() {
     this.adminService.getAllClients().subscribe((clients: any) => {
       console.log("AllClients", clients);
-      this.clients = clients;
+      this.clients = clients.filter((item: { email: string; }) => item.email !== 'admin@gmail.com');
     })
   }
 
@@ -98,11 +98,11 @@ serviceRegistrationForm() {
   getAllMamafua() {
     this.adminService.getAllMamafua().subscribe((servicesProviders: any) => {
       console.log("AllServicesProviders", servicesProviders);
-      this.serviceProviders = servicesProviders;
+      this.serviceProviders = servicesProviders.filter((item: { email: string; }) => item.email !== 'admin@gmail.com');
     })
   }
 
-  getClientRequestedServices(){
+  getClientRequestedServices() {
     this.clientService.getClientRequestedServices(this.clientEmail).subscribe((res: any) => {
       console.log("requested", res)
       this.requestedServices = res.filter((item: { svcCost: null; svcName: null; }) => item.svcCost !== null && item.svcName !== null);
@@ -112,7 +112,7 @@ serviceRegistrationForm() {
 
   onClientsTableRowClick(requestedServices: any, index: number) {
     this.selectedRowIndex = index;
-    if(requestedServices){
+    if (requestedServices) {
       this.clientEmail = requestedServices.email;
       console.log("this.clientEmail", this.clientEmail);
       this.getClientRequestedServices();
@@ -158,13 +158,18 @@ serviceRegistrationForm() {
   }
 
   deleteAvailableService(availableServices: any, event: Event) {
-    console.log("availableServicesToDel", availableServices)
-    const idToDel = availableServices.svcId;
+    if (window.confirm("Are you sure you want to Delete this service?")) {
+      console.log("availableServicesToDel", availableServices)
+      const idToDel = availableServices.svcId;
 
-    this.adminService.deleteService(idToDel).subscribe((res) => {
-      alert("Deleted");
-      this.getAllServices();
-    })
+      this.adminService.deleteService(idToDel).subscribe((res) => {
+        alert("Deleted");
+        this.getAllServices();
+      })
+    } else {
+      // do nothing...
+    }
+
 
   }
 }

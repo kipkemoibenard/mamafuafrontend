@@ -3,6 +3,7 @@
   width: 100%;
   height: 100%;
   padding: 40px;
+  display: flex;
 }
 
 #container {
@@ -48,6 +49,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding-bottom: 4px;
 }
 
 :host ::ng-deep {
@@ -75,6 +77,33 @@
 .selected-row {
   background-color: #cce5ff !important;
   /*Changes row color on click*/
+}
+
+.action-column {
+  width: 4px;
+  text-align: center;
+}
+
+.hover-button {
+  border: none;
+  background-color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.hover-button:hover {
+  background-color: rgb(171, 168, 168);
+}
+
+.rounded-circle {
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.rounded-circle:hover {
+  background-color: #8f9193;
 }
 
 @media screen and (max-width: 600px) {

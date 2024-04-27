@@ -58,7 +58,8 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
 
   getAllRequestedServices(){
     this.mamafuaService.getAllRequestedServices().subscribe((res: any) => {
-      this.requestedServices = res.filter((item: { requestStatus: string}) => item.requestStatus !== 'Accepted');
+      this.requestedServices = res.filter((item: { requestStatus: string}) => item.requestStatus !== 'Accepted' && 
+      item.requestStatus !== 'Done');
       this.acceptedServices = res.filter((item: { reqSvcProvider: string}) => item.reqSvcProvider === this.mamafuaEmail);
       console.log("requested", res)
       console.log("Available", this.requestedServices)
@@ -76,7 +77,7 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
       requestStatus: "Accepted",
       reqSvcProvider: this.mamafuaEmail,
     }
-    
+    if (window.confirm("Are you sure you want to provide this service?")) {
       this.mamafuaService.updateRequestedServices(payload, id).subscribe((res) => {
         if(res) {
           this.getAllRequestedServices();
@@ -84,6 +85,11 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
         
       })
       this.getAllRequestedServices();
+    }
+    else {
+      // do nothing
+    }
+      
     
   }
 
@@ -97,7 +103,8 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
       requestStatus: "Done",
       reqSvcProvider: this.mamafuaEmail,
     }
-    
+
+    if (window.confirm("Are you sure you are done with this service?")) {
       this.mamafuaService.updateRequestedServices(payload, id).subscribe((res) => {
         if(res) {
           this.getAllRequestedServices();
@@ -105,10 +112,11 @@ export class MamafuaDashboardComponent implements OnInit, OnDestroy {
         
       })
       this.getAllRequestedServices();
+    } else {
+      // do nothing
+    }
     
-  }
-
-  sendDataToAPI() {
+    
   }
 
   logout() {

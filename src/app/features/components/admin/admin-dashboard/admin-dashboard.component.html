@@ -7,7 +7,7 @@
 <div class="container">
     <!-- First Div -->
     <div class="item">
-        <div style="justify-content: center; text-align: center; padding-bottom: 20px;">Requests</div>
+        <div style="justify-content: center; text-align: center; padding-bottom: 28px;">Requests</div>
        
           <p-table [value]="requestedServices" styleClass="p-datatable-striped"
           [tableStyle]="{'min-width': '30rem'}" [paginator]="true" [rows]="5">
@@ -71,7 +71,8 @@
                                 <!-- Ellipsis container -->
                                 <div class="button-container">
                                     <button class="hover-button" (click)="op.toggle($event)">
-                                        <i class="fas fa-ellipsis-v" (click)="op.toggle($event)"></i>
+                                        <!-- <i class="fas fa-ellipsis-v" (click)="op.toggle($event)"></i> -->
+                                        <i class="pi pi-ellipsis-v" (click)="op.toggle($event)"></i>
                                     </button>
                                 </div>
                             </div>
@@ -82,7 +83,7 @@
     </div>
     <!-- Third Div -->
     <div class="item">
-        <div style="justify-content: center; text-align: center; padding-bottom: 20px;">Clients</div>
+        <div style="justify-content: center; text-align: center; padding-bottom: 28px;">Clients</div>
         
         <p-table [value]="clients" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '30rem'}" [paginator]="true"
                 [rows]="5">
@@ -148,7 +149,7 @@
                                 <!-- Ellipsis container -->
                                 <div class="button-container">
                                     <button class="hover-button" (click)="op.toggle($event)">
-                                        <i class="fas fa-ellipsis-v" (click)="op.toggle($event)"></i>
+                                        <i class="pi pi-ellipsis-v" (click)="op.toggle($event)"></i>
                                     </button>
                                 </div>
                             </div>

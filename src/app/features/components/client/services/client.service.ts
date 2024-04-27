@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ClientDTO } from '../models/clientDTO';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class ClientService {
   //   return this.http.get(`${this.baseUrl}/allClients`);
   // }
 
-  saveClient(payload: any) {
-    return this.http.post(`${this.baseUrl}/client/register`, payload);
+  saveClient(payload: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/client/register`, payload, { responseType: 'text' });
   }
 
   clientLogin(loginRequest: any) {
