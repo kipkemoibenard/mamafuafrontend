@@ -148,6 +148,14 @@ input[type="text"] {
   box-sizing: border-box;
 }
 
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
 button[type="button"] {
   width: 100%;
   padding: 10px;

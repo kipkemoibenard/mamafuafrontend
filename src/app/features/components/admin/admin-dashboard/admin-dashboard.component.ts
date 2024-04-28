@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AdminService } from '../service/admin.service';
 import { ClientService } from '../../client/services/client.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MamafuaService } from '../../mamafua/services/mamafua.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -17,10 +18,14 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
   clientEmail!: string;
   selectedRowIndex: number | undefined;
   visible: boolean = false;
+  serviceProviderRegFormVisible: boolean = false;
   serviceRegistrationFormForm!: FormGroup;
+  serviceProviderRegForm!: FormGroup;
   intervalId: any;
   availableServiceCode!: number;
   editMode: boolean = false;
+  errorMessage: string = '';
+  serviceProviderCode!: number;
 
 
   constructor(
@@ -28,6 +33,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     private clientService: ClientService,
     private fb: FormBuilder,
     private router: Router,
+    private mamaFuaService: MamafuaService,
   ) {
 
   }
@@ -38,6 +44,7 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
     this.getAllServices();
     this.getAllMamafua();
     this.serviceRegistrationForm();
+    this.serviceProviderRegistrationForm();
   }
 
   ngOnDestroy(): void {
@@ -46,6 +53,12 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   showRegisterDialog() {
     this.visible = true;
+  }
+
+  showServiceProviderDialog() {
+    this.editMode = false;
+    this.serviceProviderRegForm.reset();
+    this.serviceProviderRegFormVisible = true;
   }
 
   showDialog(availableServices: any) {
@@ -61,10 +74,39 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
   }
 
+  showEditServiceProviderDialog(serviceProviders: any) {
+    this.editMode = true
+    console.log("serviceProvidersToEd", serviceProviders)
+    this.serviceProviderRegFormVisible = true;
+    this.serviceProviderCode = serviceProviders.mamafuaId;
+
+    this.serviceProviderRegForm.patchValue({
+      name: serviceProviders.mamafuaName,
+      county: serviceProviders.county,
+      email: serviceProviders.email,
+      password: serviceProviders.password,
+      confirmPassword: serviceProviders.password,
+    });
+
+  }
+
   serviceRegistrationForm() {
     this.serviceRegistrationFormForm = this.fb.group({
       serviceName: [""],
       serviceCost: [""],
+    })
+  }
+
+  serviceProviderRegistrationForm() {
+    this.serviceProviderRegForm = this.fb.group({
+      name: ["", Validators.required],
+      county: ["", Validators.required],
+      residentialArea: [""],
+      plot: [""],
+      hseNumber: [""],
+      email: ["", Validators.required],
+      password: ["", Validators.required],
+      confirmPassword: ["", Validators.required],
     })
   }
 
@@ -172,4 +214,101 @@ export class AdminDashboardComponent implements OnInit, OnDestroy {
 
 
   }
+
+  registerServiceProvider() {
+    const clientData = this.serviceProviderRegForm.value;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const payload = {
+      mamafuaName: clientData.name,
+      county: clientData.county,
+      email: clientData.email,
+      password: clientData.password,
+    }
+
+    if(this.serviceProviderRegForm.invalid) {
+      alert("Fill all the fields")
+      return;
+    } else if (!emailRegex.test(clientData.email)) {
+      alert("Invalid email format!");
+      return;
+    } else if (clientData.password !== clientData.confirmPassword) {
+      alert("Passwords do not match! Ensure you capture correct passwords.")
+      // Clear password and confirm password fields
+      this.serviceProviderRegForm.get('password')?.reset();
+      this.serviceProviderRegForm.get('confirmPassword')?.reset();
+      return;
+    } else {
+      this.mamaFuaService.saveMamafua(payload).subscribe(
+        (response: any) => {
+          if (response === "Email already registered!") {
+            this.errorMessage = "Email already registered!";
+            alert(this.errorMessage)
+          } else {
+            alert("Registered!");
+            this.getAllMamafua();
+            this.serviceProviderRegForm.reset();
+            this.serviceProviderRegFormVisible = false;
+          }
+        },
+        (error: any) => {
+          console.error('Error during registration:', error);
+          // Handle error if needed
+        }
+      );
+    }
+  }
+
+  editServiceProvider() {
+    const clientData = this.serviceProviderRegForm.value;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const payload = {
+      mamafuaName: clientData.name,
+      county: clientData.county,
+      email: clientData.email,
+    }
+
+    if(this.serviceProviderRegForm.invalid) {
+      alert("Fill all the fields")
+      return;
+    } else if (!emailRegex.test(clientData.email)) {
+      alert("Invalid email format!");
+      return;
+    } else if (clientData.password !== clientData.confirmPassword) {
+      alert("Passwords do not match! Ensure you capture correct passwords.")
+      // Clear password and confirm password fields
+      this.serviceProviderRegForm.get('password')?.reset();
+      this.serviceProviderRegForm.get('confirmPassword')?.reset();
+      return;
+    } else {
+      this.adminService.editServiceProvider(payload, this.serviceProviderCode).subscribe(
+        (response: any) => {
+            alert("Edit successful!");
+            this.getAllMamafua();
+            this.serviceProviderRegForm.reset();
+            this.serviceProviderRegFormVisible = false;
+        },
+        (error: any) => {
+          console.error('Error during update:', error);
+          // Handle error if needed
+        }
+      );
+    }
+  }
+
+  deleteServiceProvider(serviceProviders: any, event: Event) {
+    if (window.confirm("Are you sure you want to Delete this service provider?")) {
+      console.log("ServiceProviderToDel", serviceProviders)
+      const idToDel = serviceProviders.mamafuaId;
+
+      this.adminService.deleteServiceProvider(idToDel).subscribe((res) => {
+        alert("Deleted");
+        this.getAllMamafua();
+      })
+    } else {
+      // do nothing...
+    }
+
+
+  }
+
 }

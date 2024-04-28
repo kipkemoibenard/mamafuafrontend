@@ -33,4 +33,12 @@ export class AdminService {
   deleteService(id: any) {
     return this.http.delete(`${this.baseUrl}/service/deleteAvailableService/${id}`);
   }
+
+  editServiceProvider(payload: any, id: any) {
+    return this.http.put(`${this.baseUrl}/mamafua/register/${id}`, payload);
+  }
+
+  deleteServiceProvider(id: any) {
+    return this.http.delete(`${this.baseUrl}/mamafua/deleteMamaFua/${id}`);
+  }
 }
