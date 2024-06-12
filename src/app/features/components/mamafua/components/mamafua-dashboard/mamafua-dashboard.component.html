@@ -6,7 +6,7 @@
         <div style="justify-content: center; margin: 20px; font-size: 20px;">Service provider Dashboard</div>
         <marquee><div style="justify-content: center; margin: 20px; font-size: 20px;">Logged in as <span style="font-weight: 600;">{{ mamafuaEmail }}</span></div></marquee>
         <div style="display: flex;">
-            <div style="flex: 1; padding-right: 20px;">
+            <div style="flex: 1; padding-right: 20px; overflow: auto;">
                 <div style="justify-content: center; text-align: center;">Available services</div>
         
                 <p-table [value]="requestedServices" styleClass="p-datatable-striped"
@@ -16,6 +16,11 @@
                             <th>id</th>
                             <th>Requesting person</th>
                             <th>Service requested</th>
+                            <th>County</th>
+                            <th>Area</th>
+                            <th>Plot</th>
+                            <th>House No</th>
+                            <th>Client phone no</th>
                             <th>Cost</th>
                             <th>Status</th>
                             <th class="action-column">Select</th>
@@ -26,6 +31,11 @@
                             <td id="table-align">{{ item.reqId }}</td>
                             <td id="table-align">{{ item.reqPerson }}</td>
                             <td id="table-align">{{ item.svcName }}</td>
+                            <td id="table-align">{{ item.county }}</td>
+                            <td id="table-align">{{ item.area }}</td>
+                            <td id="table-align">{{ item.plot }}</td>
+                            <td id="table-align">{{ item.house }}</td>
+                            <td id="table-align">{{ item.phone }}</td>
                             <td id="table-align">{{ item.svcCost }}</td>
                             <td id="table-align">{{ item.requestStatus }}</td>
                             <td class="action-column">
@@ -36,7 +46,7 @@
                 </p-table>
             </div>
         
-            <div style="flex: 1; padding-left: 20px;">
+            <div style="flex: 1; padding-left: 20px; overflow: auto;">
                 <div style="justify-content: center; text-align: center;">My accepted services</div>
         
                 <p-table [value]="acceptedServices" styleClass="p-datatable-striped"
@@ -46,6 +56,11 @@
                             <th>id</th>
                             <th>Requesting person</th>
                             <th>Service requested</th>
+                            <th>County</th>
+                            <th>Area</th>
+                            <th>Plot</th>
+                            <th>House No</th>
+                            <th>Client phone no</th>
                             <th>Cost</th>
                             <th>Status</th>
                             <th class="action-column">Mark as done</th>
@@ -56,6 +71,11 @@
                             <td id="table-align">{{ item.reqId }}</td>
                             <td id="table-align">{{ item.reqPerson }}</td>
                             <td id="table-align">{{ item.svcName }}</td>
+                            <td id="table-align">{{ item.county }}</td>
+                            <td id="table-align">{{ item.area }}</td>
+                            <td id="table-align">{{ item.plot }}</td>
+                            <td id="table-align">{{ item.house }}</td>
+                            <td id="table-align">{{ item.phone }}</td>
                             <td id="table-align">{{ item.svcCost }}</td>
                             <td id="table-align">{{ item.requestStatus }}</td>
                             <td class="action-column">

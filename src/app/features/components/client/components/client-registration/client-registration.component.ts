@@ -37,6 +37,7 @@ export class ClientRegistrationComponent implements OnInit, OnDestroy {
       email: ["", Validators.required],
       password: ["", Validators.required],
       confirmPassword: ["", Validators.required],
+      phone: ["", Validators.required],
     })
   }
 
@@ -81,6 +82,7 @@ export class ClientRegistrationComponent implements OnInit, OnDestroy {
           clntHouseNo: clientData.hseNumber,
           county: clientData.county,
           email: clientData.email,
+          phone: clientData.phone,
           password: clientData.password,
         }
 

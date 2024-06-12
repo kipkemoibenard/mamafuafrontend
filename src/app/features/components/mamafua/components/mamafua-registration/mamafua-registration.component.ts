@@ -36,6 +36,7 @@ export class MamafuaRegistrationComponent implements OnInit, OnDestroy {
       email: ["", Validators.required],
       password: ["", Validators.required],
       confirmPassword: ["", Validators.required],
+      phone: ["", Validators.required],
     })
   }
 
@@ -45,6 +46,7 @@ export class MamafuaRegistrationComponent implements OnInit, OnDestroy {
     const payload = {
       mamafuaName: clientData.name,
       county: clientData.county,
+      phone: clientData.phone,
       email: clientData.email,
       password: clientData.password,
     }

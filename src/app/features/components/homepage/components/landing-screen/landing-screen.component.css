@@ -1,4 +1,27 @@
 .container {
-    padding-left: 20px; /* Adjust this value as needed */
-    padding-right: 20px; /* Adjust this value as needed */
+    /* padding-left: 20px;
+    padding-right: 20px; */
+    height: 100%;
 }
+
+.bg-body {
+    background-image: url('/assets/images/bg.jpeg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 20px;
+    min-height: 650px;
+}
+
+/* .content {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+} */
+
+@media (max-width: 1200px) { 
+    .bg-body {
+        min-height: 100%;
+    }
+}
+

@@ -20,6 +20,11 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
   checkedServices: { svcId: number, svcName: string, svcCost: string }[] = [];
   intervalId: any;
   totalCost!: number;
+  residentialCounty!: string;
+  residenceArea!: string;
+  residentialPlot!: string;
+  house!: string;
+  phone!: string;
 
 
   constructor(
@@ -35,6 +40,7 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     this.getAllServices();
     this.getStoredEmail();
     this.getClientRequestedServices();
+    this.getAllClients();
 
   }
 
@@ -126,6 +132,11 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
     console.log()
     const dataToSend = {
       reqPerson: this.clientEmail,
+      county: this.residentialCounty,
+      area: this.residenceArea,
+      plot: this.residentialPlot,
+      house: this.house,
+      phone: this.phone,
       requests: this.checkedServices,
       totalCost: totalCost,
       requestStatus: 'Active',
@@ -163,6 +174,19 @@ export class ClientDashboardComponent implements OnInit, OnDestroy {
 
   logout() {
     this.router.navigate(['/home'])
+  }
+
+  getAllClients() {
+    this.adminService.getAllClients().subscribe((clients: any) => {
+      const clientsData = clients.filter((item: { email: string; }) => item.email === this.clientEmail);
+      console.log("ThisClientData", clientsData);
+      this.residenceArea = clientsData[0]?.clntResidenceArea;
+      this.residentialPlot = clientsData[0]?.clntResidentialPlot;
+      this.residentialCounty = clientsData[0]?.county;
+      this.house = clientsData[0]?.clntHouseNo;
+      this.phone = clientsData[0]?.phone;
+      console.log("ThisClientDataFetched", this.residenceArea, this.residentialPlot, this.residentialCounty, this.phone);
+    })
   }
 
 }

@@ -29,7 +29,7 @@ export class LandingScreenComponent implements OnInit {
       },
       {
         label: 'Services',
-        icon: 'pi pi-fw pi-service',
+        icon: 'pi pi-fw pi-cog',
         items: [
           {
             label: 'House Cleaning Services',
@@ -79,6 +79,20 @@ export class LandingScreenComponent implements OnInit {
             command: () => {
               this.router.navigate(['home/mamafua/login']);
             }
+          },
+        ]
+      },
+      {
+        label: 'Contact us',
+        icon: 'pi pi-fw pi-phone',
+        items: [
+          {
+            label: '0722222222',
+            icon: 'pi pi-fw pi-phone',
+          },
+          {
+            label: 'mamafua@gmail.com',
+            icon: 'pi pi-fw pi-envelope',
           },
         ]
       },
